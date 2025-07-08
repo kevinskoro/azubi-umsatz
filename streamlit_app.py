@@ -12,11 +12,14 @@ azubis = {
     "Immanuel": ["Merch", "Junior Trainer", "Senior Trainer", "Assistenz Manager", "Junior Sales Partner", "Sales Partner"]
 }
 
-# Laden & Speichern
+# Laden & Speichern mit Fehlerbehandlung beim Datum
 def load_data():
     try:
         df = pd.read_csv(DATA_FILE)
-        df["Datum"] = pd.to_datetime(df["Datum"])
+        # Datum in datetime, Fehler werden zu NaT konvertiert
+        df["Datum"] = pd.to_datetime(df["Datum"], errors="coerce")
+        # Zeilen mit ungültigem Datum entfernen
+        df = df.dropna(subset=["Datum"])
         df["KW"] = df["Datum"].dt.isocalendar().week
         df["Monat"] = df["Datum"].dt.month
         df["Jahr"] = df["Datum"].dt.year
@@ -29,7 +32,7 @@ def save_data(new_entry):
     df = pd.concat([df, pd.DataFrame([new_entry])], ignore_index=True)
     df.to_csv(DATA_FILE, index=False)
 
-# Eingabe
+# Eingabeformular
 with st.expander("🛠️ Umsatz eintragen (nur du siehst das)"):
     with st.form("umsatz_form"):
         datum = st.date_input("Datum", value=date.today())
@@ -99,4 +102,3 @@ for azubi in df["Azubi"].unique():
     ).properties(width=700, height=300)
 
     st.altair_chart(chart, use_container_width=True)
-
