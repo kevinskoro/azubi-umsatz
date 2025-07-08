@@ -6,12 +6,12 @@ from datetime import date
 DATA_FILE = "umsatzdaten.csv"
 
 # Setzt den Titel
-st.title("💼 Azubi-Umsatz-Dashboard")
+st.title("💼 Merch-Umsatz-Dashboard")
 
 # Lege deine Azubis und Statusstufen fest
 azubis = {
-    "Azubi 1": ["Merch", "Junior Trainer", "Senior Trainer", "Assistenz Manager", "Junior Sales Partner", "Sales Partner"],
-    "Azubi 2": ["Merch", "Junior Trainer", "Senior Trainer", "Assistenz Manager", "Junior Sales Partner", "Sales Partner"]
+    "Cemo": ["Merch", "Junior Trainer", "Senior Trainer", "Assistenz Manager", "Junior Sales Partner", "Sales Partner"],
+    "Immanuel": ["Merch", "Junior Trainer", "Senior Trainer", "Assistenz Manager", "Junior Sales Partner", "Sales Partner"]
 }
 
 # Lese Daten aus Datei
